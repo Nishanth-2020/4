@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Management System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 40px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .form-section {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: #f9f9f9;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .completed {
+      text-decoration: line-through;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📋 Project Management System</h1>
+
+    <div class="form-section">
+      <input type="text" id="projectName" placeholder="Enter project name">
+      <input type="date" id="deadline">
+      <button id="addProject">Add Project</button>
+    </div>
+
+    <h2>Project List</h2>
+    <ul id="projectList"></ul>
+  </div>
+
+  <script>
+    const addProjectBtn = document.getElementById("addProject");
+    const projectList = document.getElementById("projectList");
+
+    addProjectBtn.addEventListener("click", () => {
+      const name = document.getElementById("projectName").value.trim();
+      const deadline = document.getElementById("deadline").value;
+
+      if (!name || !deadline) {
+        alert("Please enter both project name and deadline!");
+        return;
+      }
+
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <span><strong>${name}</strong> - Deadline: ${deadline}</span>
+        <div>
+          <button class="complete">✅</button>
+          <button class="delete">🗑️</button>
+        </div>
+      `;
+
+      projectList.appendChild(li);
+
+      // Clear inputs
+      document.getElementById("projectName").value = "";
+      document.getElementById("deadline").value = "";
+
+      // Add complete/delete functionality
+      li.querySelector(".complete").addEventListener("click", () => {
+        li.classList.toggle("completed");
+      });
+
+      li.querySelector(".delete").addEventListener("click", () => {
+        li.remove();
+      });
+    });
+  </script>
+</body>
+</html>
